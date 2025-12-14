@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Friend</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>URL Extractor</h1>
+    
+    <div class="url-section">
+      <label for="canonical-url">Canonical URL:</label>
+      <div class="input-group">
+        <input type="text" id="canonical-url" readonly>
+        <button id="copy-canonical" class="copy-btn" title="Copy to clipboard">
+          <span class="copy-icon">📋</span>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <div id="canonical-status" class="status-message"></div>
+    </div>
+
+    <div class="url-section">
+      <label for="spanish-url">Spanish URL:</label>
+      <div class="input-group">
+        <input type="text" id="spanish-url" readonly>
+        <button id="copy-spanish" class="copy-btn" title="Copy to clipboard">
+          <span class="copy-icon">📋</span>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <div id="spanish-status" class="status-message"></div>
+    </div>
+
+    <div id="error-message" class="error-message"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
+
