@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Car Friend",
   "version": "1.0.0",
-  "description": "Extract canonical and Spanish alternate URLs from hpacademy.com pages",
+  "description": "Extract canonical, English, and Spanish alternate URLs from hpacademy.com pages",
   "permissions": [
     "activeTab",
     "scripting"

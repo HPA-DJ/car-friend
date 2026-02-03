@@ -15,30 +15,36 @@ async function extractLinks() {
       target: { tabId: tab.id },
       func: () => {
         const canonical = document.querySelector('link[rel="canonical"]');
+        const english = document.querySelector('link[rel="alternate"][hreflang="en"]');
         const spanish = document.querySelector('link[rel="alternate"][hreflang="es"]');
         
         return {
           canonical: canonical ? canonical.getAttribute('href') : null,
+          english: english ? english.getAttribute('href') : null,
           spanish: spanish ? spanish.getAttribute('href') : null
         };
       }
     });
 
     if (results && results[0] && results[0].result) {
-      const { canonical, spanish } = results[0].result;
+      const { canonical, english, spanish } = results[0].result;
       
       // Populate the input fields
-      const canonicalInput = document.getElementById('canonical-url');
-      const spanishInput = document.getElementById('spanish-url');
-      
-      canonicalInput.value = canonical || '';
-      spanishInput.value = spanish || '';
+      document.getElementById('canonical-url').value = canonical || '';
+      document.getElementById('english-url').value = english || '';
+      document.getElementById('spanish-url').value = spanish || '';
 
       // Show messages if links are missing
       if (!canonical) {
         showFieldMessage('canonical-status', 'Canonical URL not found', 'warning');
       } else {
         clearFieldMessage('canonical-status');
+      }
+
+      if (!english) {
+        showFieldMessage('english-status', 'English URL not found', 'warning');
+      } else {
+        clearFieldMessage('english-status');
       }
 
       if (!spanish) {
@@ -110,6 +116,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('copy-spanish').addEventListener('click', () => {
     const url = document.getElementById('spanish-url').value;
     copyToClipboard(url, 'copy-spanish', 'spanish-status');
+  });
+
+  document.getElementById('copy-english').addEventListener('click', () => {
+    const url = document.getElementById('english-url').value;
+    copyToClipboard(url, 'copy-english', 'english-status');
   });
 });
 
