@@ -17,17 +17,20 @@ async function extractLinks() {
         const canonical = document.querySelector('link[rel="canonical"]');
         const english = document.querySelector('link[rel="alternate"][hreflang="en"]');
         const spanish = document.querySelector('link[rel="alternate"][hreflang="es"]');
+        const editMeta = document.querySelector('meta[name="x-cms-edit-link"]');
+        const adminEditLink = editMeta ? editMeta.getAttribute('content') : null;
         
         return {
           canonical: canonical ? canonical.getAttribute('href') : null,
           english: english ? english.getAttribute('href') : null,
-          spanish: spanish ? spanish.getAttribute('href') : null
+          spanish: spanish ? spanish.getAttribute('href') : null,
+          adminEditLink: adminEditLink || null
         };
       }
     });
 
     if (results && results[0] && results[0].result) {
-      const { canonical, english, spanish } = results[0].result;
+      const { canonical, english, spanish, adminEditLink } = results[0].result;
       
       // Populate the input fields
       document.getElementById('canonical-url').value = canonical || '';
@@ -51,6 +54,18 @@ async function extractLinks() {
         showFieldMessage('spanish-status', 'Spanish URL not found', 'warning');
       } else {
         clearFieldMessage('spanish-status');
+      }
+
+      // Admin edit link: show section only when meta tag is present
+      const adminSection = document.getElementById('admin-edit-section');
+      const adminInput = document.getElementById('admin-edit-url');
+      if (adminEditLink) {
+        adminSection.style.display = 'block';
+        adminInput.value = adminEditLink;
+        clearFieldMessage('admin-edit-status');
+      } else {
+        adminSection.style.display = 'none';
+        adminInput.value = '';
       }
     }
   } catch (error) {
@@ -121,6 +136,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('copy-english').addEventListener('click', () => {
     const url = document.getElementById('english-url').value;
     copyToClipboard(url, 'copy-english', 'english-status');
+  });
+
+  document.getElementById('copy-admin-edit').addEventListener('click', () => {
+    const url = document.getElementById('admin-edit-url').value;
+    copyToClipboard(url, 'copy-admin-edit', 'admin-edit-status');
   });
 });
 

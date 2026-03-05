@@ -7,7 +7,8 @@ A Chrome extension that extracts canonical, English, and Spanish alternate URLs 
 - Automatically extracts canonical URLs from `<link rel="canonical">` tags
 - Extracts English alternate URLs from `<link rel="alternate" hreflang="en">` tags
 - Extracts Spanish alternate URLs from `<link rel="alternate" hreflang="es">` tags
-- Click-to-copy functionality for all three URLs
+- **Admin edit link:** When the page includes `<meta name="x-cms-edit-link" content="…">`, the popup shows a copyable link to the CMS admin edit page (e.g. `https://www.hpacademy.com/admin/pages/edit/show/1`). The section is only visible when this meta tag is present.
+- Click-to-copy functionality for all URLs (canonical, English, Spanish, and admin edit when available)
 - Visual feedback when copying URLs
 - Works only on hpacademy.com domain
 
@@ -24,8 +25,9 @@ A Chrome extension that extracts canonical, English, and Spanish alternate URLs 
 1. Navigate to any page on hpacademy.com
 2. Click the extension icon in your toolbar
 3. The popup will display the canonical, English, and Spanish URLs (if available)
-4. Click the "Copy" button next to any URL to copy it to your clipboard
-5. A "Copied!" message will appear briefly to confirm
+4. If the page has an `x-cms-edit-link` meta tag, an **Admin edit link** row appears so you can copy the CMS edit URL
+5. Click the "Copy" button next to any URL to copy it to your clipboard
+6. A "Copied!" message will appear briefly to confirm
 
 ## Files
 
